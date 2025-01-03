@@ -16,7 +16,7 @@ app.use('/shipment', shipmentRouter);
 // Add validation middleware to calculate-rate endpoint
 app.use('/shipment/calculate-rate', validateShipmentInput);
 
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 connectDB().then(() => {
     console.log("Connected to DB");
