@@ -8,13 +8,13 @@ const { validateShipmentInput } = require('./middleware/validation');
 const app = express();
 app.use(express.json());
 
+// Add validation middleware before routes
+app.use('/shipment/calculate-rate', validateShipmentInput);
+
 // Routes
 app.use('/rates', ratesRouter);
 app.use('/city-blocks', cityBlocksRouter);
 app.use('/shipment', shipmentRouter);
-
-// Add validation middleware to calculate-rate endpoint
-app.use('/shipment/calculate-rate', validateShipmentInput);
 
 const PORT = 5000;
 

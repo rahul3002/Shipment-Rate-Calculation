@@ -4,11 +4,22 @@ const CalculateShipmentCost = require('../utils/rateCalculation');
 
 router.post('/calculate-rate', async (req, res) => {
     try {
-        const { origin, destination, weight, invoiceValue, riskType } = req.body;
-        const cost = await CalculateShipmentCost(origin, destination, weight, invoiceValue, riskType);
+        const { origin: originBlock, destination: destinationBlock, weight, invoiceValue, riskType } = req.body;
+        
+        const cost = await CalculateShipmentCost(
+            originBlock,
+            destinationBlock,
+            weight,
+            invoiceValue,
+            riskType
+        );
+        
         res.status(200).json(cost);
     } catch (err) {
-        res.status(500).json({ error: "Error calculating shipment cost" });
+        console.error('Calculation Error:', err);
+        res.status(400).json({ 
+            error: err.message || "Error calculating shipment cost" 
+        });
     }
 });
 
